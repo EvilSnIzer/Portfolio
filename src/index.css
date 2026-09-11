@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Self-hosted variable fonts (subset to latin only — see src/fonts/).
+   Vendored from @fontsource-variable/* (SIL OFL). License files sit next to
+   the woff2 assets so attribution ships with the build.
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('./fonts/bricolage-grotesque-latin-var.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/geist-mono-latin-var.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0152-0153, U+2000-206F, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------------------
+   Design tokens. Palette: near-monochrome + a single warm-amber accent that
+   is used sparingly (labels, active states, emissive 3D markers only).
+-------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #101010;
+  --color-ink-raised: #161616;
+  --color-paper: #f2f2f0;
+  --color-paper-dim: #a8a8a3;
+  --color-paper-faint: #6b6b68;
+  --color-hairline: #232322;
+  --color-accent: #f3a63b;
+  --color-accent-deep: #b9761d;
+
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    background: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Lenis drives scroll; keep native smooth behaviour off to avoid fighting it. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  html.lenis-active {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  body {
+    margin: 0;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 24;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: #0a0a0a;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* Optical sizing is the premium detail: display sizes get tighter,
+     more condensed cuts; body text stays open. */
+  .display {
+    font-variation-settings: 'opsz' 96;
+    font-weight: 700;
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+  }
+  .display-sm {
+    font-variation-settings: 'opsz' 60;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-paper-faint);
+  }
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 200;
+    transform: translateY(-250%);
+    padding: 0.6rem 1rem;
+    background: var(--color-paper);
+    color: #0a0a0a;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease-out-expo);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+  #boot {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .rule {
+    height: 1px;
+    background: var(--color-hairline);
+  }
+  .hairline {
+    border-color: var(--color-hairline);
+  }
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .accent-glow {
+    text-shadow: 0 0 24px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+  /* Marquee-safe horizontal section */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
