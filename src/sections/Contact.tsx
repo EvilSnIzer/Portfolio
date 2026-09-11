@@ -1,18 +1,49 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { contactCopy, site } from '../content/site'
 import { useReveal, useSectionProgress, useSplitWords } from '../lib/motion'
 
 /**
  * 6/6 — CONTACT. Deliberately the quietest section on the page: one line of large
- * type, three links, and the single 3D accent object (scene/ContactAccent.tsx)
- * that the camera drifts past. Everything else stops moving.
+ * type, a direct email line with a one-click copy shortcut, three links, and the
+ * single 3D accent object (scene/ContactAccent.tsx) that the camera drifts past.
+ * Everything else stops moving.
  */
 export function Contact({ ready }: { ready: boolean }) {
   const ref = useSectionProgress('contact', { start: 'top bottom', end: 'bottom bottom' })
   const inner = useReveal(ref, { stagger: 0.06 })
   const head = useRef<HTMLHeadingElement>(null)
   useSplitWords(head, { play: ready, delay: 0.05 })
+
+  const [copied, setCopied] = useState(false)
+  const timer = useRef<number | null>(null)
+  useEffect(
+    () => () => {
+      if (timer.current) window.clearTimeout(timer.current)
+    },
+    [],
+  )
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(site.email)
+    } catch {
+      // Clipboard API unavailable (permissions / non-secure context) — legacy fallback.
+      const ta = document.createElement('textarea')
+      ta.value = site.email
+      ta.setAttribute('readonly', '')
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
+    setCopied(true)
+    if (timer.current) window.clearTimeout(timer.current)
+    timer.current = window.setTimeout(() => setCopied(false), 2000)
+  }
+
+  const subject = encodeURIComponent(contactCopy.heading)
 
   return (
     <section
@@ -40,7 +71,7 @@ export function Contact({ ready }: { ready: boolean }) {
         </p>
 
         <a
-          href={`mailto:${site.email}`}
+          href={`mailto:${site.email}?subject=${subject}`}
           data-reveal
           className="group mt-12 inline-flex flex-wrap items-baseline gap-4 border-y border-hairline py-6 transition-colors hover:border-paper/35"
         >
@@ -57,6 +88,17 @@ export function Contact({ ready }: { ready: boolean }) {
           </motion.span>
         </a>
 
+        <div data-reveal>
+          <button
+            type="button"
+            onClick={copyEmail}
+            aria-live="polite"
+            className="num mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-paper-faint transition-colors hover:text-paper"
+          >
+            <span aria-hidden="true">{copied ? '✓' : '⧉'}</span> {copied ? 'Copied to clipboard' : 'Copy email'}
+          </button>
+        </div>
+
         <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-5">
           {site.links.map((l) => (
             <li key={l.label} data-reveal>
@@ -69,6 +111,12 @@ export function Contact({ ready }: { ready: boolean }) {
                 <p className="num text-[9.5px] uppercase tracking-[0.22em] text-paper-faint">{l.label}</p>
                 <p className="link-underline mt-1.5 inline-block text-[16px] text-paper-dim transition-colors group-hover:text-paper sm:text-[18px]">
                   {l.handle}
+                  {l.href.startsWith('http') && (
+                    <span aria-hidden="true" className="text-[0.8em] text-paper-faint">
+                      {' '}
+                      ↗
+                    </span>
+                  )}
                 </p>
               </a>
             </li>

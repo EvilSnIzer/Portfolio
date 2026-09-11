@@ -25,19 +25,17 @@ export const site = {
     label: 'Open to ML / data engineering roles',
   },
   location: 'India · Remote-friendly', // TODO: confirm your preferred display
-  /** TODO: replace with a real, monitored inbox before publishing. */
-  email: 'hello@manansharma.dev',
+  email: 'manan.naitik@gmail.com',
   /** TODO: add a Calendly/booking link, or delete `booking`. */
   booking: null,
   links: [
     { label: 'GitHub', href: 'https://github.com/EvilSnIzer', handle: 'EvilSnIzer' },
     {
       label: 'LinkedIn',
-      // TODO: replace with your full LinkedIn profile URL.
-      href: 'https://www.linkedin.com/in/manan-sharma',
-      handle: 'in/manan-sharma',
+      href: 'https://www.linkedin.com/in/manan-sharma-144752201',
+      handle: 'in/manan-sharma-144752201',
     },
-    { label: 'Email', href: 'mailto:hello@manansharma.dev', handle: 'hello@manansharma.dev' },
+    { label: 'Email', href: 'mailto:manan.naitik@gmail.com', handle: 'manan.naitik@gmail.com' },
   ],
 } as const
 
