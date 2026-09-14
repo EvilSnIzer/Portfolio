@@ -1,0 +1,13 @@
+{
+  "name": "Manan Sharma — AI/ML Engineer",
+  "short_name": "Manan Sharma",
+  "description": "Portfolio: machine learning, data engineering and quantitative systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}
