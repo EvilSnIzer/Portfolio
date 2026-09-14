@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Manan Sharma">
+  <rect width="64" height="64" fill="#0a0a0a"/>
+  <path d="M13 47V17l10 16 10-16v30" fill="none" stroke="#f2f2f0" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="48" cy="20.5" r="3.4" fill="#f3a63b"/>
+  <path d="M44 47c4-2 6-5 6-9" fill="none" stroke="#f2f2f0" stroke-width="3.4" stroke-linecap="round"/>
+</svg>

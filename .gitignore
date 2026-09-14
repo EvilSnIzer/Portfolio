@@ -1,0 +1,6 @@
+node_modules
+dist
+.vercel
+.smoke/_mobile.mjs
+.DS_Store
+npm-debug.log*
