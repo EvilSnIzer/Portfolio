@@ -72,11 +72,12 @@ const out = await import('./dist/entry.js')
 const html = out.default()
 console.log('RENDER OK · length', html.length)
 // Assertions: everything a crawler or screen reader needs must be in the DOM.
+// (skip-link lives in the static index.html, not the SSR output, so it is not asserted here.)
 const must = [
-  'Manan Sharma', 'AI/ML Engineer', 'id="hero"', 'id="about"', 'id="skills"', 'id="projects"',
+  'Manan Sharma', 'Product Analyst', 'id="hero"', 'id="about"', 'id="skills"', 'id="projects"',
   'id="timeline"', 'id="contact"', 'Crypto Trade Outcome Predictor', 'Crypto Spark Pipeline',
-  'CRM Funnel Intelligence', 'github.com/EvilSnIzer', 'skip-link', 'PySpark', 'scikit-learn',
-  'Reliable data', 'Walk-Forward CV',
+  'CRM Funnel Intelligence', 'github.com/EvilSnIzer', 'PySpark', 'scikit-learn',
+  'Products are decisions', 'User Stories',
 ]
 const missing = must.filter((m) => !html.includes(m))
 console.log(missing.length ? 'MISSING FROM DOM: ' + missing.join(' | ') : 'ALL CONTENT PRESENT IN DOM ✓')

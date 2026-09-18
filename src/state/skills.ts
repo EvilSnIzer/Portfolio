@@ -37,7 +37,7 @@ export type SkillNode = {
   measured?: boolean
 }
 
-const GROUPS = ['AI / ML', 'Data / Quant', 'Software', 'Analytics']
+const GROUPS = ['Product', 'AI / ML', 'Data / Analytics', 'Software']
 
 export const skillNodes: SkillNode[] = (() => {
   const out: SkillNode[] = []

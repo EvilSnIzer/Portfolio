@@ -8,23 +8,23 @@
 
 export const site = {
   name: 'Manan Sharma',
-  role: 'AI/ML Engineer',
+  role: 'Product Analyst · AI & Data',
   /** Rotating sub-line under the name. Keep ≤ 6, they cross-fade. */
   roles: [
+    'Product Analyst',
     'AI/ML Engineer',
-    'Quant & Market Analyst',
-    'Data Engineer',
     'Business Analyst',
-    'Software Engineer',
+    'Data Engineer',
+    'Quant Analyst',
   ],
-  tagline: 'Engineering intelligence for data, markets and software.',
+  tagline: 'Turning complex data and AI into decisions people can act on.',
   blurb:
-    'I build practical systems across machine learning, quantitative analysis, data engineering and software — turning complex information into something measurable, reproducible and useful.',
+    'I work across product, analytics and machine learning — turning ambiguous requirements into evidence, specifications and shipped software. Equally at home in an architecture review, a competitor teardown, or writing the document a team relies on.',
   status: {
     open: true,
-    label: 'Open to ML / data engineering roles',
+    label: 'Open to product & analyst roles in AI',
   },
-  location: 'India · Remote-friendly', // TODO: confirm your preferred display
+  location: 'Delhi NCR, India · Open to relocation', // matches Product Associate roles in Pune / hybrid India
   email: 'manan.naitik@gmail.com',
   /** TODO: add a Calendly/booking link, or delete `booking`. */
   booking: null,
@@ -41,7 +41,7 @@ export const site = {
 
 export const hero = {
   /** Word-by-word mask reveal. Short beats long here. */
-  line: 'Systems that keep working after the demo.',
+  line: 'Evidence in. Decisions out.',
   scrollCue: 'Scroll to fly through',
   metrics: [
     { value: '23', label: 'Public repositories' },
@@ -52,19 +52,19 @@ export const hero = {
 
 export const about = {
   eyebrow: '01 — About',
-  heading: 'Reliable data → rigorous evaluation → useful software.',
+  heading: 'Products are decisions. I make them with evidence.',
   paragraphs: [
-    'I work at the seam between models and decisions. Most of my time goes into the parts that never make it into a screenshot: leakage-safe feature engineering, walk-forward validation, schemas that survive the next upstream change, tests that fail before a customer does.',
-    'That means I am as comfortable writing a PySpark Bronze → Silver → Gold pipeline as I am explaining to a stakeholder why a 4% accuracy gain is not worth the operational cost of the model that delivers it.',
-    'Currently exploring agentic systems and quantitative intelligence — with a bias toward tooling I can delete in an afternoon.',
+    'I work at the seam between data, engineering and the people who have to make the call. Most of my time goes into the parts that never make it into a screenshot: turning vague requirements into testable acceptance criteria, baselining before believing a metric, and writing the documents other people rely on.',
+    'That means I am as comfortable sitting in an architecture discussion and capturing what was decided and why, as I am telling a stakeholder that a 4% accuracy gain is not worth the operational cost of the model that delivers it.',
+    'Currently looking for a product role in enterprise AI — the kind where the job is to be useful across the whole picture rather than specialised into one slice of it.',
   ],
   principles: [
-    { title: 'Reproducibility', body: 'Same inputs, same numbers, without me in the room.' },
-    { title: 'Leakage paranoia', body: 'Time-aware splits, baselines, honest evaluation windows.' },
+    { title: 'Signal over noise', body: 'Baselines first. A lift that does not survive them is not a lift.' },
+    { title: 'Writing is the work', body: 'Most product output is a document someone relies on. Structured, short, checkable.' },
     { title: 'Explicit assumptions', body: 'Documented, tested, and falsifiable — not folklore.' },
-    { title: 'Understandable systems', body: 'The demo is the easy part. Six months later is the test.' },
+    { title: 'Second pair of hands', body: 'Get clarity out of busy people, chase the blocker, close the loop.' },
   ],
-  focus: ['Intelligence', 'Markets', 'Data', 'Software'],
+  focus: ['Product', 'AI', 'Data', 'Analysis'],
 }
 
 export const skillsNote =
@@ -73,7 +73,7 @@ export const skillsNote =
 export const contactCopy = {
   eyebrow: '05 — Contact',
   heading: "Let's build something measurable.",
-  body: 'Best for: ML pipelines, data platform work, quant research tooling, or a second opinion on an evaluation you do not trust yet.',
+  body: "Best for: product and analyst roles in AI/SaaS — a second pair of hands on roadmaps, bids and evaluations, or a second opinion on a metric you don't trust yet.",
 }
 
 /**
