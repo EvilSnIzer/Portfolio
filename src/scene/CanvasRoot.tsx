@@ -8,6 +8,7 @@ import { TimelineTube } from './TimelineTube'
 import { ProjectPlanes } from './ProjectPlanes'
 import { ContactAccent } from './ContactAccent'
 import { SkillLinks } from './SkillLinks'
+import { AvatarHolo } from './AvatarHolo'
 import { CameraRig } from './CameraRig'
 import { SceneProgressReporter } from './SceneProgressReporter'
 
@@ -71,6 +72,7 @@ export default function CanvasRoot({
       <Suspense fallback={null}>
         <CameraRig flyThrough={flyThrough} reduced={reduced} introKey={introKey} onReady={onReady} />
         <ParticleField count={particles} reduced={reduced} />
+        {!reduced ? <AvatarHolo /> : null}
         {/* Trails only where there is fill-rate to spare; they are pure bonus. */}
         {!reduced && tier !== 'mobile' ? (
           <WarpStreaks count={tier === 'high' ? 300 : 170} reduced={reduced} />

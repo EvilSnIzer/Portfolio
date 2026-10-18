@@ -46,17 +46,34 @@ export function Hero({ ready }: { ready: boolean }) {
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(var(--color-hairline) 1px, transparent 1px), linear-gradient(90deg, var(--color-hairline) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
 
       <div ref={block} className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-end px-5 pb-8 sm:px-8 sm:pb-10">
+        {/* 3D avatar fallback — DOM card (visible on mobile/reduced, hidden when WebGL avatar is active) */}
+        <div className="pointer-events-none absolute right-8 top-24 hidden w-[300px] lg:block xl:w-[360px]" aria-hidden data-reveal>
+          <div className="relative overflow-hidden border border-hairline bg-ink-soft/60 backdrop-blur-md">
+            <img src="/img/avatar.jpg" alt="Manan Sharma" className="h-[420px] w-full object-cover object-top opacity-[0.96]" loading="eager" decoding="async" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-60" />
+            {/* sharp corner brackets */}
+            <span className="absolute left-3 top-3 h-4 w-4 border-l border-t border-accent" />
+            <span className="absolute right-3 top-3 h-4 w-4 border-r border-t border-accent" />
+            <span className="absolute bottom-[52px] left-3 h-4 w-4 border-b border-l border-accent" />
+            <span className="absolute bottom-[52px] right-3 h-4 w-4 border-b border-r border-accent" />
+            <div className="absolute bottom-0 inset-x-0 border-t border-hairline bg-ink px-4 py-3">
+              <p className="num text-[10px] uppercase tracking-[0.18em] text-accent">Manan Sharma — AI/ML Engineer</p>
+              <p className="num mt-1 text-[8px] uppercase tracking-[0.14em] text-paper-faint">India · Remote · Open to ML / Data roles</p>
+            </div>
+          </div>
+        </div>
+
         <div ref={reveal} className="contents">
           {/* Eyebrow — glass pill */}
           <div className="mb-6 inline-flex flex-wrap items-center gap-2 self-start" data-reveal>
             <span className="inline-flex items-center gap-2 border border-hairline bg-ink-soft/70 px-3 py-1.5 backdrop-blur-md">
-              <span aria-hidden className="h-2 w-2 w-px bg-accent" />
+              <span aria-hidden className="h-3 w-px bg-accent" />
               <span className="num text-[9px] uppercase tracking-[0.18em] text-paper-dim">{site.location}</span>
               <span className="text-paper-faint">·</span>
               <span className="num text-[9px] uppercase tracking-[0.16em] text-accent font-medium">{site.status.label}</span>
             </span>
             <span className="hidden sm:inline-flex items-center gap-1.5 border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
-              <span className="h-1.5 w-1.5 hidden" aria-hidden />
+              <span className="hidden" aria-hidden />
               <span className="num text-[8px] tracking-[0.16em] text-emerald-400 font-medium">Open to work</span>
             </span>
           </div>
@@ -135,7 +152,7 @@ export function Hero({ ready }: { ready: boolean }) {
         <div className="marquee-track">
           {[...STACK, ...STACK].map((t, i) => (
             <span key={i} className="num mx-6 inline-flex items-center gap-6 text-[11px] uppercase tracking-[0.2em] text-paper-faint/60">
-              {t} <span className="h-1 w-1 hidden" />
+              {t} <span className="hidden" />
             </span>
           ))}
         </div>
