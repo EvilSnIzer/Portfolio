@@ -2,122 +2,50 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { contactCopy, site } from '../content/site'
 import { useReveal, useSectionProgress, useSplitWords } from '../lib/motion'
+import { ContactForm } from '../components/ContactForm'
 
-/**
- * 6/6 — CONTACT. Deliberately the quietest section on the page: one line of large
- * type, a direct email line with a one-click copy shortcut, three links, and the
- * single 3D accent object (scene/ContactAccent.tsx) that the camera drifts past.
- * Everything else stops moving.
- */
 export function Contact({ ready }: { ready: boolean }) {
   const ref = useSectionProgress('contact', { start: 'top bottom', end: 'bottom bottom' })
   const inner = useReveal(ref, { stagger: 0.06 })
   const head = useRef<HTMLHeadingElement>(null)
   useSplitWords(head, { play: ready, delay: 0.05 })
-
   const [copied, setCopied] = useState(false)
   const timer = useRef<number | null>(null)
-  useEffect(
-    () => () => {
-      if (timer.current) window.clearTimeout(timer.current)
-    },
-    [],
-  )
+  useEffect(()=>()=>{ if(timer.current) window.clearTimeout(timer.current)},[])
   const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(site.email)
-    } catch {
-      // Clipboard API unavailable (permissions / non-secure context) — legacy fallback.
-      const ta = document.createElement('textarea')
-      ta.value = site.email
-      ta.setAttribute('readonly', '')
-      ta.style.position = 'fixed'
-      ta.style.opacity = '0'
-      document.body.appendChild(ta)
-      ta.select()
-      document.execCommand('copy')
-      ta.remove()
+    try { await navigator.clipboard.writeText(site.email) } catch {
+      const ta=document.createElement('textarea'); ta.value=site.email; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove()
     }
-    setCopied(true)
-    if (timer.current) window.clearTimeout(timer.current)
-    timer.current = window.setTimeout(() => setCopied(false), 2000)
+    setCopied(true); if(timer.current) window.clearTimeout(timer.current); timer.current=window.setTimeout(()=>setCopied(false),2000)
   }
-
   const subject = encodeURIComponent(contactCopy.heading)
-
   return (
-    <section
-      id="contact"
-      ref={ref}
-      aria-labelledby="contact-title"
-      className="relative mx-auto flex min-h-[92svh] w-full max-w-[1600px] flex-col justify-center px-5 py-28 sm:px-8"
-    >
+    <section id="contact" ref={ref} aria-labelledby="contact-title" className="relative mx-auto flex min-h-[92svh] w-full max-w-[1600px] flex-col justify-center px-5 py-28 sm:px-8">
       <div ref={inner} className="relative z-10">
-        <p className="eyebrow" data-reveal>
-          {contactCopy.eyebrow}
-        </p>
+        <p className="eyebrow" data-reveal>{contactCopy.eyebrow}</p>
+        <h2 ref={head} id="contact-title" className="display mt-7 max-w-[16ch] text-[11.5vw] sm:text-[7.6vw] lg:text-[6.4vw]" data-reveal>{contactCopy.heading}</h2>
+        <p className="mt-8 max-w-[52ch] text-[15px] leading-[1.75] text-paper-dim sm:text-[16.5px]" data-reveal>{contactCopy.body}</p>
 
-        <h2
-          ref={head}
-          id="contact-title"
-          className="display mt-7 max-w-[16ch] text-[11.5vw] sm:text-[7.6vw] lg:text-[6.4vw]"
-          data-reveal
-        >
-          {contactCopy.heading}
-        </h2>
-
-        <p className="mt-8 max-w-[52ch] text-[15px] leading-[1.75] text-paper-dim sm:text-[16.5px]" data-reveal>
-          {contactCopy.body}
-        </p>
-
-        <a
-          href={`mailto:${site.email}?subject=${subject}`}
-          data-reveal
-          className="group mt-12 inline-flex flex-wrap items-baseline gap-4 border-y border-hairline py-6 transition-colors hover:border-paper/35"
-        >
+        <a href={`mailto:${site.email}?subject=${subject}`} data-reveal className="group mt-12 inline-flex flex-wrap items-baseline gap-4 border-y border-hairline py-6 transition-colors hover:border-paper/35">
           <span className="num text-[10px] uppercase tracking-[0.24em] text-accent">Write to me</span>
-          <span className="display-sm block text-[7vw] leading-none sm:text-[3.6vw] lg:text-[40px]">
-            {site.email}
-          </span>
-          <motion.span
-            aria-hidden
-            className="num ml-auto hidden text-[10px] uppercase tracking-[0.2em] text-paper-faint sm:inline"
-            whileHover={{ x: 6 }}
-          >
-            ↗
-          </motion.span>
+          <span className="display-sm block text-[7vw] leading-none sm:text-[3.6vw] lg:text-[40px]">{site.email}</span>
+          <motion.span aria-hidden className="num ml-auto hidden text-[10px] uppercase tracking-[0.2em] text-paper-faint sm:inline" whileHover={{x:6}}>↗</motion.span>
         </a>
+        <div data-reveal><button type="button" onClick={copyEmail} aria-live="polite" className="num mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-paper-faint transition-colors hover:text-paper"><span aria-hidden>{copied?'✓':'⧉'}</span> {copied?'Copied to clipboard':'Copy email'}</button></div>
 
-        <div data-reveal>
-          <button
-            type="button"
-            onClick={copyEmail}
-            aria-live="polite"
-            className="num mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-paper-faint transition-colors hover:text-paper"
-          >
-            <span aria-hidden="true">{copied ? '✓' : '⧉'}</span> {copied ? 'Copied to clipboard' : 'Copy email'}
-          </button>
+        {/* Working contact form */}
+        <div data-reveal className="mt-10">
+          <h3 className="num text-[11px] uppercase tracking-[0.2em] text-paper">Or send a message — live form</h3>
+          <p className="num mt-1 text-[10px] tracking-[0.14em] text-paper-faint">Validated, with success animation. Falls back to email client if offline.</p>
+          <ContactForm />
         </div>
 
         <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-5">
           {site.links.map((l) => (
             <li key={l.label} data-reveal>
-              <a
-                href={l.href}
-                target={l.href.startsWith('http') ? '_blank' : undefined}
-                rel="noreferrer noopener"
-                className="group block"
-              >
+              <a href={l.href} target={l.href.startsWith('http')?'_blank':undefined} rel="noreferrer noopener" className="group block">
                 <p className="num text-[9.5px] uppercase tracking-[0.22em] text-paper-faint">{l.label}</p>
-                <p className="link-underline mt-1.5 inline-block text-[16px] text-paper-dim transition-colors group-hover:text-paper sm:text-[18px]">
-                  {l.handle}
-                  {l.href.startsWith('http') && (
-                    <span aria-hidden="true" className="text-[0.8em] text-paper-faint">
-                      {' '}
-                      ↗
-                    </span>
-                  )}
-                </p>
+                <p className="link-underline mt-1.5 inline-block text-[16px] text-paper-dim transition-colors group-hover:text-paper sm:text-[18px]">{l.handle}{l.href.startsWith('http') && <span aria-hidden className="text-[0.8em] text-paper-faint"> ↗</span>}</p>
               </a>
             </li>
           ))}
@@ -127,15 +55,9 @@ export function Contact({ ready }: { ready: boolean }) {
       <footer className="relative z-10 mt-24 sm:mt-32">
         <div className="rule mb-5" />
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">
-            {site.name} · {site.role}
-          </p>
-          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">
-            React · R3F · GSAP ScrollTrigger · Lenis · Tailwind
-          </p>
-          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">
-            © {new Date().getFullYear()} · {site.location}
-          </p>
+          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">{site.name} · {site.role}</p>
+          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">React · R3F · GSAP · Lenis · Tailwind</p>
+          <p className="num text-[9.5px] uppercase tracking-[0.18em] text-paper-faint">© {new Date().getFullYear()} · {site.location}</p>
         </div>
       </footer>
     </section>

@@ -30,6 +30,7 @@ export const sections = [
   { id: 'projects', label: 'Work', index: '03' },
   { id: 'timeline', label: 'Trajectory', index: '04' },
   { id: 'contact', label: 'Contact', index: '05' },
+  { id: 'testimonials', label: 'Praise', index: '06' },
 ]
 
 /** Mutable, render-free store. Read inside useFrame / tweens, never in render. */

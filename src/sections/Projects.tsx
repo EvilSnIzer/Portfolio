@@ -40,6 +40,7 @@ import { CaseStudy } from '../components/CaseStudy'
  * store, so the 3D plates keep tracking the cards either way.
  */
 const CARD_W = 400
+const CATEGORIES = ['All','AI/ML','Data','Web'] as const
 
 export function Projects() {
   const section = useRef<HTMLElement>(null)
@@ -57,6 +58,9 @@ export function Projects() {
   const [open, setOpen] = useState<Project | null>(null)
   const [desktop, setDesktop] = useState(true)
   const [active, setActive] = useState(0)
+  const [filter, setFilter] = useState<(typeof CATEGORIES)[number]>('All')
+  const visibleProjects = filter==='All' ? projects : projects.filter(p=> p.category===filter)
+  useEffect(()=>{ ScrollTrigger.refresh() }, [filter])
 
   useEffect(() => {
     // Same gate as the camera fly-through, plus a real pointer: a 1024px
@@ -347,6 +351,11 @@ export function Projects() {
               >
                 Repos, and what they prove
               </h2>
+              <div className="mt-4 flex flex-wrap gap-2" data-reveal>
+                {CATEGORIES.map(c=> (
+                  <button key={c} onClick={()=> setFilter(c)} data-active={filter===c?'1':undefined} className="filter-pill">{c}</button>
+                ))}
+              </div>
             </div>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <p className="num max-w-[26ch] text-[10px] uppercase leading-[1.9] tracking-[0.18em] text-paper-faint" data-reveal>
@@ -399,7 +408,7 @@ export function Projects() {
                   : 'no-scrollbar flex w-full gap-6 overflow-x-auto px-5 pb-2 pt-2 sm:px-8 [scroll-snap-type:x_proximity]'
               }
             >
-              {projects.map((p, i) => (
+              {visibleProjects.map((p, i) => (
                 <ProjectCard
                   key={p.id}
                   p={p}
@@ -407,8 +416,6 @@ export function Projects() {
                   active={i === active}
                   depth={desktop && !getQuality().reduced}
                   setRef={(el) => {
-                    // Block body on purpose: React 19 treats a returned value from
-                    // a ref callback as a cleanup function, and an HTMLElement isn't one.
                     cards.current[i] = el
                   }}
                   onOpen={() => {
@@ -435,7 +442,7 @@ export function Projects() {
             {/* A button group, not a tablist: tabs promise to reveal a panel in the
                 same slot, and these jump a scroll position instead. */}
             <div className="rail-seg" role="group" aria-label="Jump to project">
-              {projects.map((p, i) => (
+              {visibleProjects.map((p, i) => (
                 <button
                   key={p.id}
                   type="button"

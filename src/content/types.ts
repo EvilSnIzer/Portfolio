@@ -12,6 +12,7 @@ export type Project = {
   role: string
   /** Short comma list rendered on the card. */
   blurb: string
+  category: 'AI/ML' | 'Data' | 'Web'
   tags: string[]
   stack: string[]
   metrics?: Metric[]

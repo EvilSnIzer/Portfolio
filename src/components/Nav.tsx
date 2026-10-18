@@ -2,19 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { sections, scroll, scrollToSection } from '../state/scroll'
 import { useQuality } from '../hooks/useMedia'
+import { ThemeToggle } from './ThemeToggle'
 
-/**
- * Fixed chrome. Uses IntersectionObserver-driven `scroll.active` (already computed
- * by the scroll engine) rather than adding its own scroll listener.
- */
 export function Nav({ ready }: { ready: boolean }) {
   const q = useQuality()
   const [active, setActive] = useState('hero')
   const [hidden, setHidden] = useState(false)
   const last = useRef(0)
 
-  // 8Hz poll of the store the scroll engine already maintains: no extra scroll
-  // listener, no per-frame React render, and chrome updates feel instant.
   useEffect(() => {
     const id = setInterval(() => {
       if (scroll.active) setActive(scroll.active)
@@ -34,20 +29,9 @@ export function Nav({ ready }: { ready: boolean }) {
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: hidden ? 0 : 0.1 }}
       className="fixed inset-x-0 top-0 z-[60] px-5 pt-4 sm:px-8 sm:pt-6"
     >
-      <nav
-        aria-label="Sections"
-        className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 border-b border-hairline/70 pb-3"
-      >
-        <a
-          href="#hero"
-          onClick={(e) => {
-            e.preventDefault()
-            scrollToSection('hero')
-          }}
-          className="num text-[11px] font-medium tracking-[0.26em] text-paper uppercase"
-        >
-          MS
-          <span className="ml-2 hidden text-paper-faint sm:inline">— Manan Sharma</span>
+      <nav aria-label="Sections" className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 border-b border-hairline/70 pb-3 backdrop-blur-[6px]">
+        <a href="#hero" onClick={(e)=>{e.preventDefault(); scrollToSection('hero')}} className="num text-[11px] font-medium tracking-[0.26em] text-paper uppercase">
+          MS<span className="ml-2 hidden text-paper-faint sm:inline">— Manan Sharma</span>
         </a>
 
         {!q.mobile && (
@@ -56,28 +40,9 @@ export function Nav({ ready }: { ready: boolean }) {
               const on = active === s.id
               return (
                 <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToSection(s.id)
-                    }}
-                    aria-current={on ? 'true' : undefined}
-                    className="relative block px-3 py-1.5"
-                  >
-                    <span
-                      className="num text-[10px] uppercase tracking-[0.2em] transition-colors duration-300"
-                      style={{ color: on ? 'var(--color-paper)' : 'var(--color-paper-faint)' }}
-                    >
-                      {s.index} {s.label}
-                    </span>
-                    {on && (
-                      <motion.span
-                        layoutId="nav-dot"
-                        className="absolute inset-x-2 -bottom-[13px] h-px bg-accent"
-                        transition={{ type: 'spring', stiffness: 380, damping: 34 }}
-                      />
-                    )}
+                  <a href={`#${s.id}`} onClick={(e)=>{e.preventDefault(); scrollToSection(s.id)}} aria-current={on ? 'true' : undefined} className="relative block px-3 py-1.5">
+                    <span className="num text-[10px] uppercase tracking-[0.2em] transition-colors duration-300" style={{ color: on ? 'var(--color-paper)' : 'var(--color-paper-faint)' }}>{s.index} {s.label}</span>
+                    {on && <motion.span layoutId="nav-dot" className="absolute inset-x-2 -bottom-[13px] h-px bg-accent" transition={{ type: 'spring', stiffness: 380, damping: 34 }} />}
                   </a>
                 </li>
               )
@@ -85,21 +50,14 @@ export function Nav({ ready }: { ready: boolean }) {
           </ul>
         )}
 
-        <a
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault()
-            scrollToSection('contact')
-          }}
-          className="group num inline-flex shrink-0 items-center gap-2 border border-hairline px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-paper-dim transition-colors hover:border-paper/40 hover:text-paper"
-        >
-          <span
-            aria-hidden
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: 'var(--color-accent)', boxShadow: '0 0 10px var(--color-accent)' }}
-          />
-          Available
-        </a>
+        <div className="flex items-center gap-2">
+          <span className="hidden num text-[9px] uppercase tracking-[0.16em] text-paper-faint sm:inline">⌘K</span>
+          <ThemeToggle />
+          <a href="#contact" onClick={(e)=>{e.preventDefault(); scrollToSection('contact')}} className="group num inline-flex shrink-0 items-center gap-2 border border-hairline px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-paper-dim transition-colors hover:border-paper/40 hover:text-paper">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--color-accent)', boxShadow: '0 0 10px var(--color-accent)' }} />
+            Available
+          </a>
+        </div>
       </nav>
     </motion.header>
   )
