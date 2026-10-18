@@ -49,14 +49,14 @@ export function Hero({ ready }: { ready: boolean }) {
         <div ref={reveal} className="contents">
           {/* Eyebrow — glass pill */}
           <div className="mb-6 inline-flex flex-wrap items-center gap-2 self-start" data-reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-hairline bg-ink-soft/70 px-3 py-1.5 backdrop-blur-md">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)] animate-pulse" />
+            <span className="inline-flex items-center gap-2 border border-hairline bg-ink-soft/70 px-3 py-1.5 backdrop-blur-md">
+              <span aria-hidden className="h-2 w-2 w-px bg-accent" />
               <span className="num text-[9px] uppercase tracking-[0.18em] text-paper-dim">{site.location}</span>
               <span className="text-paper-faint">·</span>
               <span className="num text-[9px] uppercase tracking-[0.16em] text-accent font-medium">{site.status.label}</span>
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
+            <span className="hidden sm:inline-flex items-center gap-1.5 border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
+              <span className="h-1.5 w-1.5 hidden" aria-hidden />
               <span className="num text-[8px] tracking-[0.16em] text-emerald-400 font-medium">Open to work</span>
             </span>
           </div>
@@ -71,7 +71,7 @@ export function Hero({ ready }: { ready: boolean }) {
               <span className="display-sm block text-[7vw] sm:text-[2.9vw] lg:text-[2.2vw] text-paper-dim font-light tracking-[-0.03em]" data-reveal>
                 {site.tagline}
               </span>
-              <span aria-hidden="true" className="num inline-flex h-[1.8em] items-center overflow-hidden rounded-full border border-hairline bg-ink-soft/60 px-3 text-[10px] uppercase tracking-[0.18em] text-paper-dim backdrop-blur-sm">
+              <span aria-hidden="true" className="num inline-flex h-[1.8em] items-center overflow-hidden border border-hairline bg-ink-soft/60 px-3 text-[10px] uppercase tracking-[0.18em] text-paper-dim backdrop-blur-sm">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={site.roles[roleIndex]}
@@ -135,7 +135,7 @@ export function Hero({ ready }: { ready: boolean }) {
         <div className="marquee-track">
           {[...STACK, ...STACK].map((t, i) => (
             <span key={i} className="num mx-6 inline-flex items-center gap-6 text-[11px] uppercase tracking-[0.2em] text-paper-faint/60">
-              {t} <span className="h-1 w-1 rounded-full bg-accent/40" />
+              {t} <span className="h-1 w-1 hidden" />
             </span>
           ))}
         </div>

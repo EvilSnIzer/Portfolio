@@ -32,7 +32,7 @@ export function Contact({ ready }: { ready: boolean }) {
         <div data-reveal className="mt-10 overflow-hidden rounded-[20px] border border-hairline bg-ink-soft">
           <a href={`mailto:${site.email}?subject=${encodeURIComponent(contactCopy.heading)}`} className="group flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 transition-colors hover:bg-ink-raised">
             <div>
-              <span className="num flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-accent"><span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" /> Write to me</span>
+              <span className="num flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-accent">Write to me</span>
               <span className="display-sm mt-2 block text-[6vw] sm:text-[3vw] lg:text-[36px] leading-none">{site.email}</span>
             </div>
             <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>

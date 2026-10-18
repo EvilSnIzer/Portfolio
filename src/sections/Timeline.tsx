@@ -90,7 +90,7 @@ export function Timeline() {
           >
             <span
               aria-hidden
-              className="tl-node absolute -left-[4.5px] top-[34px] h-[9px] w-[9px] rounded-full border border-hairline bg-ink"
+              className="tl-node absolute -left-[4.5px] top-[34px] h-[9px] w-[9px] border border-hairline bg-ink"
             />
             <p className="tl-year num text-[11px] uppercase tracking-[0.2em] text-paper-faint">
               {m.date}

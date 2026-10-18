@@ -73,7 +73,6 @@ export function Nav({ ready }: { ready: boolean }) {
             onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}
             className="group hidden sm:inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-[10px] font-medium uppercase tracking-[0.14em] text-ink transition-all hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98]"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-ink animate-pulse" aria-hidden />
             Hire me
             <span className="transition-transform group-hover:translate-x-0.5">↗</span>
           </a>
