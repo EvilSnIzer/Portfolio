@@ -6,9 +6,11 @@ import { WarpStreaks } from './WarpStreaks'
 import { MorphCore } from './MorphCore'
 import { TimelineTube } from './TimelineTube'
 import { ProjectPlanes } from './ProjectPlanes'
+import { ProjectMedia3D } from './ProjectMedia3D'
 import { ContactAccent } from './ContactAccent'
 import { SkillLinks } from './SkillLinks'
-import { AvatarHolo } from './AvatarHolo'
+import { CartoonAvatar } from './CartoonAvatar'
+import { ScratchAssets } from './ScratchAssets'
 import { CameraRig } from './CameraRig'
 import { SceneProgressReporter } from './SceneProgressReporter'
 
@@ -72,7 +74,9 @@ export default function CanvasRoot({
       <Suspense fallback={null}>
         <CameraRig flyThrough={flyThrough} reduced={reduced} introKey={introKey} onReady={onReady} />
         <ParticleField count={particles} reduced={reduced} />
-        {!reduced ? <AvatarHolo /> : null}
+        {!reduced ? <CartoonAvatar /> : null}
+        {!reduced && tier !== 'mobile' ? <ScratchAssets tier={tier} /> : null}
+        <ProjectMedia3D tier={tier} />
         {/* Trails only where there is fill-rate to spare; they are pure bonus. */}
         {!reduced && tier !== 'mobile' ? (
           <WarpStreaks count={tier === 'high' ? 300 : 170} reduced={reduced} />

@@ -49,7 +49,7 @@ export function Hero({ ready }: { ready: boolean }) {
         {/* 3D avatar fallback — DOM card (visible on mobile/reduced, hidden when WebGL avatar is active) */}
         <div className="pointer-events-none absolute right-8 top-24 hidden w-[300px] lg:block xl:w-[360px]" aria-hidden data-reveal>
           <div className="relative overflow-hidden border border-hairline bg-ink-soft/60 backdrop-blur-md">
-            <img src="/img/avatar.jpg" alt="Manan Sharma" className="h-[420px] w-full object-cover object-top opacity-[0.96]" loading="eager" decoding="async" />
+            <img src="/img/avatar-cartoon.png" alt="Manan Sharma — cartoon avatar" className="h-[420px] w-full object-cover object-top opacity-[0.96] bg-white" loading="eager" decoding="async" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent opacity-60" />
             {/* sharp corner brackets */}
             <span className="absolute left-3 top-3 h-4 w-4 border-l border-t border-accent" />

@@ -1,0 +1,12 @@
+
+> manan-sharma-portfolio@1.0.0 dev
+> vite --host 0.0.0.0 --port 5173
+
+
+  VITE v8.3.0  ready in 220 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://169.254.0.21:5173/  eth0
+4:03:49 PM [vite] (client) hmr update /src/index.css, /src/scene/CanvasRoot.tsx
+4:03:52 PM [vite] (client) hmr update /src/index.css, /src/scene/CanvasRoot.tsx
+4:03:55 PM [vite] (client) hmr update /src/sections/Hero.tsx, /src/index.css
