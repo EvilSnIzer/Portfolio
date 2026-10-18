@@ -4,6 +4,7 @@ import { Preloader } from './components/Preloader'
 import { NoiseOverlay } from './components/NoiseOverlay'
 import { ScrollBackdrop } from './components/ScrollBackdrop'
 import { SceneShell } from './components/SceneShell'
+import { ScrollProgressBar } from './components/ScrollProgressBar'
 import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Skills } from './sections/Skills'
@@ -45,6 +46,7 @@ export default function App() {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <Preloader progress={progress} status={status} onDone={()=>{}} />
+      <ScrollProgressBar />
       <CustomCursor />
       <CommandPalette />
       <EasterEgg />
